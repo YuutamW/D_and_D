@@ -12,15 +12,18 @@ class Item;     //frwrd decleration
 class Character
 {
 private:
+    bool Alive = true;
     char *name;
     int health;
     int strength;
     int defense;
 public:
-    Character(char *chrName, int chrHP, int chrStren, int charDef);
+    // Character();
+    /*We need to come back here later and decide if we want to keep default params*/
+    Character(char *chrName = nullptr, int chrHP = 0 , int chrStren = 0, int charDef = 0);
     void attack(Monster& target);
     void defend(int damage);
-    bool isAlive() const;
+    inline bool isAlive() const {return Alive;}
     Character operator+(const Item& item);
     virtual ~Character() = 0;   //pure virtual
 };
