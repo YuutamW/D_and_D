@@ -1,4 +1,6 @@
-//Yotam Weintraub 321610859
+// Dor Mandel :       ID: 315313825
+// Yotam Weintraub:   ID: 321610859
+
 #pragma once
 #include <iostream>
 #include <cctype>
