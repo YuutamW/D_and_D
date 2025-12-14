@@ -1,4 +1,6 @@
-//DORRRR!!!! PUT OUR NAMESSSS HEEEREE!!!!!
+// Dor Mandel :       ID: 315313825
+// Yotam Weintraub:   ID: 321610859
+
 #include "Character.hpp"
 #include <cstring>
 #include <cmath>
