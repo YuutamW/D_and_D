@@ -24,6 +24,6 @@ public:
     void attack(Monster& target);
     void defend(int damage);
     inline bool isAlive() const {return Alive;}
-    Character operator+(const Item& item);
+    Character& operator+(const Item& item);
     virtual ~Character() = 0;   //pure virtual
 };
