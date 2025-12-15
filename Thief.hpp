@@ -8,7 +8,7 @@ class Thief : public Character
 private:
     /* data */
 public:
-    Thief(char *name) : Character(name,60,20,7){}
+    Thief(char *name) : Character(name,60,20,7){ type = thief;}
 };
 
 

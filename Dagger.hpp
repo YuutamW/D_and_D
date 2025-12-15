@@ -4,14 +4,9 @@
 #pragma once
 #include <iostream>
 #include "Item.hpp"
-
-
-class Sword : public Item
+class Dagger : public Item
 {
 public:
-    Sword(char *name) : Item(name, 0, 5, 5) {dedicatedChrctr = warrior;}
+    Dagger(char* name) : Item(name , 0, 7, 3) {dedicatedChrctr = thief;}
     inline bool canPickUp(characterType charType) const override { return charType == dedicatedChrctr;}
-
 };
-
-

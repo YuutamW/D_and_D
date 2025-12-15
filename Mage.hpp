@@ -10,5 +10,5 @@ class  Mage : public Character
     private:
     
     public:
-    Mage(char *name) : Character(name,40,25,5) {}
+    Mage(char *name) : Character(name,40,25,5) {type = mage;}
 };

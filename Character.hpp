@@ -17,6 +17,8 @@ private:
     int health;
     int strength;
     int defense;
+    protected :
+    characterType type;
 public:
     // Character();
     /*We need to come back here later and decide if we want to keep default params*/
@@ -26,4 +28,12 @@ public:
     inline bool isAlive() const {return Alive;}
     Character& operator+(const Item& item);
     virtual ~Character() = 0;   //pure virtual
+    
+    
+    
+    //getters
+    inline int getHPBonus() const {return health; }
+    inline int getStrenBonus() const {return strength;}
+    inline int getDefenseBonus() const {return defense;}
+    inline const std::string getName() const {return std::string(name);}
 };

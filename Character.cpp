@@ -23,10 +23,7 @@
 
     void Character::attack(Monster &target)
     {
-        //we havent implemented getters and setters for Monster, so we will write for now psuedoCode:
-        /*
-            target.TakeDamage(this->strength);
-        */
+       target.TakeDamage(strength);
     }
 
     void Character::defend(int damage)
@@ -42,11 +39,13 @@
    #pragma region operators
     Character& Character::operator+(const Item &item)
     {
-        // if(!item) return *this;
-        // this->defense += item.defenseBonus;
-        // this->strength += item.attackBonus;
-        // this->health += item.healthBonus;
-        
+        if(!item) return *this;
+        if(item.canPickUp(this->type))
+        {
+            health += item.getHPBonus();
+            strength += item.getStrenBonus();
+            defense += item.getDefenseBonus();
+        }
         return *this;
     }
 

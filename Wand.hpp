@@ -5,13 +5,9 @@
 #include <iostream>
 #include "Item.hpp"
 
-
-class Sword : public Item
+class Wand : public Item
 {
-public:
-    Sword(char *name) : Item(name, 0, 5, 5) {dedicatedChrctr = warrior;}
+    Wand(char *name) : Item(name, 0, 10, 0) {dedicatedChrctr = mage;}
     inline bool canPickUp(characterType charType) const override { return charType == dedicatedChrctr;}
-
 };
-
 

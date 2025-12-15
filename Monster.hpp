@@ -4,6 +4,7 @@
 #pragma once
 
 #include <iostream>
+#include "Character.hpp"
 
 class Character;    //fwd_Decleration
 
@@ -27,6 +28,11 @@ public:
     void TakeDamage(int dmg);
     bool operator!() const
     {return (!name || mnstrHP == -1 || mnstrStren == -1 || mnstrDef == -1);}
+
+    inline int getHPBonus() const {return mnstrHP; }
+    inline int getStrenBonus() const {return mnstrStren;}
+    inline int getDefenseBonus() const {return mnstrDef;}
+    inline const std::string getName() const {return std::string(name);}
 
 };
 

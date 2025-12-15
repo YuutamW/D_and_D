@@ -10,6 +10,6 @@ class Warrior : public Character
 private:
     /* data */
 public:
-    Warrior(char *name) : Character(name,100,15,10){}
+    Warrior(char *name) : Character(name,100,15,10) {type = warrior;}
 };
 
