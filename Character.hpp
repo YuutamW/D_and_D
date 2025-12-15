@@ -6,8 +6,10 @@
 #include <cctype>
 #include "Monster.hpp"
 #include "Item.hpp"
-class Monster;  //frwrd decleration
-class Item;     //frwrd decleration
+
+//frwrd decleration
+class Monster;  
+class Item;     
 
 class Character
 {

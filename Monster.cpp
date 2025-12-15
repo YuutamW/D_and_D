@@ -19,7 +19,7 @@ Monster::~Monster()
     if(name){ free(name);name = nullptr;}
 }
     #pragma endregion
-    
+
 void Monster::attack(Character &target)
 {
     target.defend(mnstrStren);
@@ -27,7 +27,7 @@ void Monster::attack(Character &target)
 
 void Monster::TakeDamage(int dmg)
 {
-    int damageDealt = dmg - mnstrDef;
+    int damageDealt = dmg - mnstrDef ;
 
     if(damageDealt <= 0) return;
 
