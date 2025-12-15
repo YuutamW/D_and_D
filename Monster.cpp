@@ -27,7 +27,7 @@ void Monster::attack(Character &target)
 
 void Monster::TakeDamage(int dmg)
 {
-    int damageDealt = mnstrDef - dmg;
+    int damageDealt = dmg - mnstrDef;
 
     if(damageDealt <= 0) return;
 

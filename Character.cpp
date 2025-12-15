@@ -28,7 +28,7 @@
 
     void Character::defend(int damage)
     {
-        int damageDealt = defense - damage;
+        int damageDealt = damage - defense;
 
         if(damageDealt <= 0) return;
 
