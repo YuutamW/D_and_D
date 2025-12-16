@@ -17,6 +17,8 @@ Monster::Monster(char *mnstrName, int HP, int Stren, int Def)
     Defeated = false;
 }
 
+Monster::Monster(const Monster& other) {*this = other;}
+
 Monster::~Monster()
 {
     if(name){ free(name);name = nullptr;}
@@ -36,6 +38,18 @@ void Monster::TakeDamage(int dmg)
 
     mnstrHP -= damageDealt; 
     if(damageDealt > mnstrHP) Defeated = true;
+}
+
+Monster &Monster::operator=(const Monster &other)
+{
+    if(this == &other) return *this;
+    if(this->name) free(this->name);
+    this->name = nullptr;
+    this->name = (other.name) ? strdup(other.name) : nullptr;
+    this->mnstrStren = other.mnstrStren;
+    this->mnstrHP = other.mnstrHP;
+    this->mnstrDef = other.mnstrDef;
+    return *this;
 }
 
 #pragma endregion

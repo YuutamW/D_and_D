@@ -35,5 +35,8 @@ public:
     inline int getDefenseBonus() const {return mnstrDef;}
     inline const std::string getName() const {return std::string(name);}
 
+    //assign oprtr Overlaod
+    Monster& operator=(const Monster& other);
+
 };
 

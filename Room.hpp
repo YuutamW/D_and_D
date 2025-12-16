@@ -33,7 +33,7 @@ public:
     inline void connectEast(Room *easternRoom) {this->east = easternRoom;}
     inline void connectWest(Room *westernRoom) {this->west = westernRoom;}
     inline void setItem(Item *itemToAdd) {this->item = itemToAdd->clone();}
-    inline void setMonster(Monster* mnstrToAdd) {this->monster = new Monster(*mnstrToAdd);}
+    inline void setMonster(Monster* mnstrToAdd) {*(this)->monster = *mnstrToAdd;}
 
     //getters&setters
     inline const char* getName() const { return roomName; }
@@ -43,7 +43,7 @@ public:
     inline const Room* getWest() const { return west; }
     inline const Item* getItem() const { return item; }
     inline const Monster* getMnstr() const { return monster;}
-    inline const Room* getNext() const {return next;}
+    inline Room* getNext() const {return next;}
     inline void setNext(Room* NextRoom) {next = NextRoom;}
 
 };
