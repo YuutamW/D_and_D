@@ -24,9 +24,13 @@ private:
     inline void cleanMnstrInRoom() {if(monster) delete monster;}
     inline void cleanMembersInRoom() {cleanItemInRoom(); cleanMnstrInRoom();}
 public:
-    Room() : roomName(nullptr), north(nullptr), south(nullptr), east(nullptr), west(nullptr), item(nullptr), monster(nullptr) {}
-    Room(char *giveName) : roomName(strdup(giveName)), north(nullptr), south(nullptr), east(nullptr), west(nullptr), item(nullptr), monster(nullptr) {}
-    Room(const Room& other);
+     Room() : roomName(nullptr), north(nullptr), south(nullptr),
+     east(nullptr), west(nullptr), item(nullptr), monster(nullptr) {}
+    
+     Room(char *giveName) : roomName(strdup(giveName)), north(nullptr),
+     south(nullptr),east(nullptr), west(nullptr), item(nullptr), monster(nullptr) {}
+    
+     Room(const Room& other);
     ~Room();
 
     //connectFuncs
@@ -47,5 +51,12 @@ public:
     inline const Monster* getMnstr() const { return monster;}
     inline Room* getNext() const {return next;}
     inline void setNext(Room* NextRoom) {next = NextRoom;}
+
+    
+    //OP: (Room_OBJ)==(const char*): if other room has no name(null) will return false regardless.
+    inline bool operator==(const char* otherRoomName) const {return (otherRoomName && this->roomName) ? (strcmp(otherRoomName,this->roomName) == 0) : false ;}
+    
+    //OP: (Room_OBJ)==(Room_OBJ):binary oprtr between two objects will check duplicates between Names AND Monsters.
+    inline bool operator==(const Room& other) const {return (other.roomName)? (*this == other.roomName && this->monster == other.monster): false;}
 
 };

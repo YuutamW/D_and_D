@@ -27,9 +27,8 @@ public:
 
     // Helper
     void TakeDamage(int dmg);
-    inline bool operator!() const
-    {return (!name || mnstrHP == -1 || mnstrStren == -1 || mnstrDef == -1);}
 
+    
     inline const int getHPBonus() const {return mnstrHP; }
     inline const int getStrenBonus() const {return mnstrStren;}
     inline const int getDefenseBonus() const {return mnstrDef;}
@@ -37,7 +36,9 @@ public:
     inline const char* getName() const {return name;}
     //Operators overloading
     Monster& operator=(const Monster& other);
-    /* Monster* operator=(const Monster* other); */
+    //! op: will return true when (name == null) or detected the less critical error data(-1) that could have been set along the program.
+    inline bool operator!() const {return (!name || (mnstrDef*mnstrHP*mnstrStren) == -1);}
+    //==op: will return true when all data are the same. NOTE: will return false if (other) is a bad argument.
     inline bool operator==(const Monster& other) const
     {return (!other) ? false : (strcmp(this->name,other.name) == 0) && (this->mnstrStren == other.mnstrStren) && (this->mnstrDef == other.mnstrDef);}
 
