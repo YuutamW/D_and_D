@@ -20,7 +20,9 @@ private:
     //private funcs
     void destroyRoom();
     Room& operator=(const Room& other);
-
+    inline void cleanItemInRoom() {if(item) delete item; item = nullptr;}
+    inline void cleanMnstrInRoom() {if(monster) delete monster;}
+    inline void cleanMembersInRoom() {cleanItemInRoom(); cleanMnstrInRoom();}
 public:
     Room() : roomName(nullptr), north(nullptr), south(nullptr), east(nullptr), west(nullptr), item(nullptr), monster(nullptr) {}
     Room(char *giveName) : roomName(strdup(giveName)), north(nullptr), south(nullptr), east(nullptr), west(nullptr), item(nullptr), monster(nullptr) {}
@@ -32,8 +34,8 @@ public:
     inline void connectSouth(Room *southernRoom) {this->south = southernRoom;}
     inline void connectEast(Room *easternRoom) {this->east = easternRoom;}
     inline void connectWest(Room *westernRoom) {this->west = westernRoom;}
-    inline void setItem(Item *itemToAdd) {this->item = itemToAdd->clone();}
-    inline void setMonster(Monster* mnstrToAdd) {*(this)->monster = *mnstrToAdd;}
+    inline void setItem(Item *itemToAdd) {cleanItemInRoom();  this->item = (itemToAdd) ? itemToAdd->clone() : nullptr;}
+    inline void setMonster(Monster* mnstrToAdd) {cleanMnstrInRoom(); this->monster = (mnstrToAdd) ? new Monster(*mnstrToAdd) : nullptr;}
 
     //getters&setters
     inline const char* getName() const { return roomName; }

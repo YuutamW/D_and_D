@@ -9,8 +9,7 @@
     {
         if(roomName) free(roomName);
         roomName = nullptr;
-        if(item) delete item;
-        if(monster) delete monster;
+        cleanMembersInRoom();
     }
 
     //definition operator Ovrld. -deepCopies 
@@ -43,7 +42,7 @@
     Room::~Room()
     {
         destroyRoom();
-        north = south = east = west = nullptr;
+        
     }
 
     #pragma endregion
