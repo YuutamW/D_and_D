@@ -17,9 +17,11 @@ private:
 protected:
     characterType dedicatedChrctr;
 public:
-    Item(char* itemName = nullptr, int HPBon = -1, int strenBon = -1, int defenseBon = -1 );
+    Item(char* itemName = nullptr, int HPBon = 0, int strenBon = 0, int defenseBon = 0 );
     virtual ~Item() = 0;
     virtual bool canPickUp(characterType charType) const { return true; }
+    virtual Item* clone() const = 0;
+    Item(const Item& other);
     //getters
     inline int getHPBonus() const {return healthBonus; }
     inline int getStrenBonus() const {return strengthBonus;}

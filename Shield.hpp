@@ -8,7 +8,8 @@
 class Shield : public Item
 {
     public:
-    Shield(char* name) : Item(name, 0, 0, 5) {dedicatedChrctr = Any;}
+    Shield(char* name, int HP = 0, int stren = 0, int dfns = 0) : Item(name,HP+ 0,stren+ 0,dfns+ 5) {}
 
     inline bool canPickUp(characterType charType) const override {return true;}
+    inline Item* clone() const override {return new Shield(*this);}
 };

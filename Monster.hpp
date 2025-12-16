@@ -19,6 +19,7 @@ private:
     
 public:
     Monster(char* mnstrName = nullptr, int HP = -1 , int Stren = -1 , int Def = -1);
+    Monster(const Monster& other);
     ~Monster();
 
     void attack(Character& target);

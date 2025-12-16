@@ -9,5 +9,4 @@ enum characterType
         warrior,
         mage,
         thief,
-        //Any
     };
