@@ -24,7 +24,7 @@ private:
 public:
     // Character();
     /*We need to come back here later and decide if we want to keep default params*/
-    Character(char *chrName = nullptr, int chrHP = 0 , int chrStren = 0, int charDef = 0);
+    Character(char *chrName , int chrHP = 0 , int chrStren = 0, int charDef = 0);
     void attack(Monster& target);
     void defend(int damage);
     inline bool isAlive() const {return Alive;}

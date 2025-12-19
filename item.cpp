@@ -5,7 +5,7 @@
 #pragma region public
 
     #pragma region destrctrs/dstrctrs
-    Item::Item(char * itemName, int HPBon, int strenBon, int defenseBon)
+    Item::Item(char *itemName, int HPBon, int strenBon, int defenseBon)
     {
         name = (itemName) ? strdup(itemName) : nullptr;
         if(!name || HPBon<0 || strenBon<0 || defenseBon<0) {

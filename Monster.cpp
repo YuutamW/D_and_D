@@ -12,7 +12,7 @@ Monster::Monster(char *mnstrName, int HP, int Stren, int Def) : Defeated(false)
 {
      
     name = (mnstrName) ? strdup(mnstrName) : nullptr;
-    if(!name) {HP = Stren = Def = -1;} //this is a safety flag that the ! operator will catch, whether no name was given or strdup failed.
+    if(!name) {HP = Stren = Def = -1;} //this is a safety flag that the ! operator will catch, if no name was given or strdup failed.
     mnstrHP = HP;
     mnstrStren = Stren;
     mnstrDef = Def;

@@ -23,11 +23,13 @@ private:
     inline void cleanItemInRoom() {if(item) delete item; item = nullptr;}
     inline void cleanMnstrInRoom() {if(monster) delete monster;}
     inline void cleanMembersInRoom() {cleanItemInRoom(); cleanMnstrInRoom();}
+    
+    
 public:
      Room() : roomName(nullptr), north(nullptr), south(nullptr),
      east(nullptr), west(nullptr), item(nullptr), monster(nullptr) {}
     
-     Room(char *giveName) : roomName(strdup(giveName)), north(nullptr),
+     Room(const char *giveName) : roomName(strdup(giveName)), north(nullptr),
      south(nullptr),east(nullptr), west(nullptr), item(nullptr), monster(nullptr) {}
     
      Room(const Room& other);
@@ -50,13 +52,16 @@ public:
     inline const Item* getItem() const { return item; }
     inline const Monster* getMnstr() const { return monster;}
     inline Room* getNext() const {return next;}
+    inline std::string roomToString() const {return std::string(roomName);}
     inline void setNext(Room* NextRoom) {next = NextRoom;}
-
     
-    //OP: (Room_OBJ)==(const char*): if other room has no name(null) will return false regardless.
+    //OP==: (Room_OBJ)==(const char*): if other room has no name(null) will return false regardless.
     inline bool operator==(const char* otherRoomName) const {return (otherRoomName && this->roomName) ? (strcmp(otherRoomName,this->roomName) == 0) : false ;}
-    
-    //OP: (Room_OBJ)==(Room_OBJ):binary oprtr between two objects will check duplicates between Names AND Monsters.
-    inline bool operator==(const Room& other) const {return (other.roomName)? (*this == other.roomName && *(this)->monster == *(other).monster): false;}
+    //OP==: (Room_OBJ)==(Room_OBJ):binary oprtr between two objects will check duplicates between Names
+    inline bool operator==(const Room& other) const {return (other.roomName)? (*this == other.roomName ): false;}
+    //OP+=: Updates the *next field 
+    inline void operator+=(Room* nextRoom) { setNext(nextRoom);}
+    //OP++: this = this->next
+    inline Room* operator++() {return next;}
 
 };

@@ -5,21 +5,44 @@
 #include "Room.hpp"
 #include <iostream>
 
-#define NUM_OF_ROOMS 10
-
 class Room; // frwdDecleration
 
 class Dungeon
 {
 private:
-    Room* startRoom = nullptr ;
-    Room** rooms;
-public:
-    Dungeon(int numOfRooms = NUM_OF_ROOMS);
-    ~Dungeon();
-    void setStartRoom(Room* room);
-    void addRoom(Room* room);
-    Room* findRoom(char* name);
 
+    struct RoomNode
+    {
+        Room node;
+        RoomNode* nextRoom;
+    };
+    
+
+    Room* head = nullptr , *tail = nullptr;
+    Room* startRoom = nullptr ;
+
+    void DestroyList();
+    enum State
+    {
+        Success,
+        Fail,
+    };   
+    
+public:
+
+    Dungeon() {}
+    ~Dungeon();
+
+    State Dstate;
+    //--setup methods--
+    void addRoom(Room* roomToAdd);
+    inline void setStartRoom(Room* roomToSet) {startRoom = roomToSet;}
+    void connectRooms(Room* roomA, Room* roomB, std::string dir);
+
+    //--populate methods--
+    void placeItem(std::string roomName, Item* itemToAdd);
+    void placeMonster(std::string roomName, Monster* mnstToAdd);
+
+    Room* findRoom(std::string RoomName) const;
 };
 

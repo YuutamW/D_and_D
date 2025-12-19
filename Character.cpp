@@ -8,7 +8,7 @@
 #pragma region public funcs
     #pragma region cnstrctrs/dstrctrs
     Character::Character(char *chrName, int chrHP, int chrStren, int charDef)
-    : name(strdup(chrName)) , health(chrHP), strength(chrStren), defense(charDef) {}
+    : name(chrName ? strdup(chrName) : nullptr) , health(chrHP), strength(chrStren), defense(charDef) {}
 
     
 
