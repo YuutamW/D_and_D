@@ -36,12 +36,12 @@ void Monster::attack(Character &target)
 
 void Monster::TakeDamage(int dmg)
 {
-    int damageDealt = dmg - mnstrDef ;
+    if(Defeated) return;
+    int damageDealt = std::max(1, dmg - mnstrDef );
 
-    if(damageDealt <= 0) return;
-
-    mnstrHP -= damageDealt; 
+    // if(damageDealt <= 0) return;
     if(damageDealt > mnstrHP) Defeated = true;
+    mnstrHP -= damageDealt; 
 }
 
     #pragma region operator overlaoding
@@ -66,6 +66,8 @@ bool Monster::operator==(const Monster &other) const
     this->mnstrStren == other.mnstrStren &&
      this->mnstrDef == other.mnstrDef);
 }
+
+// bool operator!() const {return (!name || (mnstrDef*mnstrHP*mnstrStren) == -1 || Defeated);}
 
 /*
 Monster *Monster::operator=(const Monster *other)

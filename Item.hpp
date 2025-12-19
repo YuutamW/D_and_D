@@ -28,7 +28,10 @@ public:
     inline int getDefenseBonus() const {return defenseBonus;}
     inline const std::string getName() const {return std::string(name);}
     
+    //operators
     inline bool operator!() const { return !name || healthBonus == -1 || strengthBonus == -1 || defenseBonus == -1 ;}
-
+    bool operator==(const Item& other) const;
+    bool operator>(const Item& other) const;
+    bool operator<(const Item& other) const;
 };
 

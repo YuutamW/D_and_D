@@ -7,17 +7,17 @@
     #pragma region destrctrs/dstrctrs
     Item::Item(char * itemName, int HPBon, int strenBon, int defenseBon)
     {
-    name = (itemName) ? strdup(itemName) : nullptr;
-    if(!name) {
-        HPBon = strenBon = defenseBon = -1;
-    }
-    healthBonus = HPBon;
-    strengthBonus = strenBon;
-    defenseBonus = defenseBon;
+        name = (itemName) ? strdup(itemName) : nullptr;
+        if(!name || HPBon<0 || strenBon<0 || defenseBon<0) {
+            HPBon = strenBon = defenseBon = -1;
+        }
+        healthBonus = HPBon;
+        strengthBonus = strenBon;
+        defenseBonus = defenseBon;
     }
 
     Item::Item(const Item& other) :healthBonus(other.healthBonus), strengthBonus(other.strengthBonus),
-     defenseBonus(other.defenseBonus), dedicatedChrctr(other.dedicatedChrctr) 
+                                    defenseBonus(other.defenseBonus), dedicatedChrctr(other.dedicatedChrctr) 
      {
         this->name = (other.name) ? strdup(other.name) : nullptr;
      }

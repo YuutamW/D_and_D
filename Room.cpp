@@ -47,8 +47,5 @@
 
     #pragma endregion
 
-    #pragma region connectFuncs
-
-    #pragma endregion
-
+    
 #pragma endregion

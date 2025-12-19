@@ -34,10 +34,10 @@ public:
     ~Room();
 
     //connectFuncs
-    inline void connectNorth(Room *northernRoom) {this->north = northernRoom;}
-    inline void connectSouth(Room *southernRoom) {this->south = southernRoom;}
-    inline void connectEast(Room *easternRoom) {this->east = easternRoom;}
-    inline void connectWest(Room *westernRoom) {this->west = westernRoom;}
+    inline void connectNorth(Room *northernRoom) {this->north = northernRoom; }//northernRoom->connectSouth(this);}
+    inline void connectSouth(Room *southernRoom) {this->south = southernRoom; }// southernRoom->connectNorth(this);}
+    inline void connectEast(Room *easternRoom) {this->east = easternRoom; }//easternRoom->connectWest(this);}
+    inline void connectWest(Room *westernRoom) {this->west = westernRoom; }//westernRoom->connectEast(this);
     inline void setItem(Item *itemToAdd) {cleanItemInRoom();  this->item = (itemToAdd) ? itemToAdd->clone() : nullptr;}
     inline void setMonster(Monster* mnstrToAdd) {cleanMnstrInRoom(); this->monster = (mnstrToAdd) ? new Monster(*mnstrToAdd) : nullptr;}
 
@@ -57,6 +57,6 @@ public:
     inline bool operator==(const char* otherRoomName) const {return (otherRoomName && this->roomName) ? (strcmp(otherRoomName,this->roomName) == 0) : false ;}
     
     //OP: (Room_OBJ)==(Room_OBJ):binary oprtr between two objects will check duplicates between Names AND Monsters.
-    inline bool operator==(const Room& other) const {return (other.roomName)? (*this == other.roomName && this->monster == other.monster): false;}
+    inline bool operator==(const Room& other) const {return (other.roomName)? (*this == other.roomName && *(this)->monster == *(other).monster): false;}
 
 };
