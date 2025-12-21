@@ -50,7 +50,7 @@ public:
     inline const Room* getEast() const { return east; }
     inline const Room* getWest() const { return west; }
     inline const Item* getItem() const { return item; }
-    inline const Monster* getMnstr() const { return monster;}
+    inline const Monster* getMnstr() const { return (monster)? monster : nullptr;}
     inline Room* getNext() const {return next;}
     inline std::string roomToString() const {return std::string(roomName);}
     inline void setNext(Room* NextRoom) {next = NextRoom;}
@@ -59,9 +59,23 @@ public:
     inline bool operator==(const char* otherRoomName) const {return (otherRoomName && this->roomName) ? (strcmp(otherRoomName,this->roomName) == 0) : false ;}
     //OP==: (Room_OBJ)==(Room_OBJ):binary oprtr between two objects will check duplicates between Names
     inline bool operator==(const Room& other) const {return (other.roomName)? (*this == other.roomName ): false;}
-    //OP+=: Updates the *next field 
+    //OP==: (Room_OBJ)==(*ITEM_OBJ) will check to see if there is an item already in the room and if so, are the items similiar
+    inline bool operator==(const Item* otherItem) const {return (item) ? *item == *otherItem : false;}
+    //OP+=: (Room_OBJ)+=(*Room_OBJ) Updates the *next field 
     inline void operator+=(Room* nextRoom) { setNext(nextRoom);}
     //OP++: this = this->next
     inline Room* operator++() {return next;}
+    //OP+=: (ROOM_OBJ)+=(*Item_OBJ) if there is already an item, deletes it. sets the item pointer to be the given parameter
+    inline void operator+=(Item* itemToAdd) {
+        if(!itemToAdd) return;
+        else if(!(*this == itemToAdd)){cleanItemInRoom();item = itemToAdd;}
+    }
+    //OP+=: (Room_OBJ)+=(*Monster_OBJ) if there is already a monster, deletes it. sets the monster pointer to the given param
+    inline void operator+=(Monster* monsterToAdd) {
+        if(!monsterToAdd) return;
+        if(!monster) monster = monsterToAdd;
+        else if(!(*monsterToAdd == *monster)){cleanMnstrInRoom();monster = monsterToAdd;}
+    }
+
 
 };

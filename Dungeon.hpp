@@ -10,14 +10,6 @@ class Room; // frwdDecleration
 class Dungeon
 {
 private:
-
-    struct RoomNode
-    {
-        Room node;
-        RoomNode* nextRoom;
-    };
-    
-
     Room* head = nullptr , *tail = nullptr;
     Room* startRoom = nullptr ;
 
@@ -33,16 +25,16 @@ public:
     Dungeon() {}
     ~Dungeon();
 
-    State Dstate;
+    State Dstate = Success;
     //--setup methods--
     void addRoom(Room* roomToAdd);
-    inline void setStartRoom(Room* roomToSet) {startRoom = roomToSet;}
+    void setStartRoom(Room* roomToSet);
     void connectRooms(Room* roomA, Room* roomB, std::string dir);
 
     //--populate methods--
     void placeItem(std::string roomName, Item* itemToAdd);
     void placeMonster(std::string roomName, Monster* mnstToAdd);
 
-    Room* findRoom(std::string RoomName) const;
+    Room* findRoom(std::string RoomName);
 };
 

@@ -14,6 +14,7 @@ private:
    int healthBonus;
    int strengthBonus;
    int defenseBonus;
+   int itemStats;
 protected:
     characterType dedicatedChrctr;
 public:
@@ -27,9 +28,13 @@ public:
     inline int getStrenBonus() const {return strengthBonus;}
     inline int getDefenseBonus() const {return defenseBonus;}
     inline const std::string getName() const {return std::string(name);}
+    virtual std::string ItemCategory() const = 0;
     
     //operators
     inline bool operator!() const { return !name || healthBonus == -1 || strengthBonus == -1 || defenseBonus == -1 ;}
+    //OP==: (Item)==(char*) compares names
+    inline bool operator==(const char* otherItemName) const {return (otherItemName)?  strcmp(this->name,otherItemName) == 0 : false;}
+    //OP==: (Item)==(OtherItem) only compares stats and not names.
     bool operator==(const Item& other) const;
     bool operator>(const Item& other) const;
     bool operator<(const Item& other) const;

@@ -14,6 +14,7 @@
         healthBonus = HPBon;
         strengthBonus = strenBon;
         defenseBonus = defenseBon;
+        itemStats = healthBonus+strengthBonus+defenseBonus;
     }
 
     Item::Item(const Item& other) :healthBonus(other.healthBonus), strengthBonus(other.strengthBonus),
@@ -21,6 +22,21 @@
      {
         this->name = (other.name) ? strdup(other.name) : nullptr;
      }
+
+    bool Item::operator==(const Item & other) const
+    {
+        return (!this || !other) ? false : this->itemStats == other.itemStats;
+    }
+
+    bool Item::operator>(const Item & other) const  
+    {
+        return (!this || !other) ? false : this->itemStats > other.itemStats;
+    }
+
+    bool Item::operator<(const Item & other) const
+    {
+        return (!this || !other) ? false : !(*this > other) ;
+    }
 
     Item::~Item() {if(name)free(name); name = nullptr;}
     

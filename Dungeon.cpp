@@ -3,7 +3,6 @@
 
 #include "Dungeon.hpp"
 
-
 #pragma region private methods
 
     void Dungeon::DestroyList() 
@@ -13,9 +12,10 @@
         while(head)
         {
             head = head->getNext();
-            delete head;
+            delete curr;
             curr = head;
         }
+        head = tail = nullptr;
     }
 
 #pragma endregion
@@ -45,7 +45,23 @@
             
         }
     }
-    void Dungeon::connectRooms(Room* roomA, Room* roomB, std::string dir)
+    
+    void Dungeon::setStartRoom(Room *roomToSet)
+    {
+        if(!roomToSet) 
+        {
+            Dstate = Fail; 
+            return;
+        }
+        startRoom = findRoom(roomToSet->getName());
+        if(!startRoom) {
+            Dstate = Fail; 
+            return;
+        }
+        Dstate = Success;
+    }
+    
+    void Dungeon::connectRooms(Room *roomA, Room *roomB, std::string dir)
     {
         Dstate = (roomA && roomB) ? Success : Fail;
         if(Dstate == Fail) return;
@@ -63,13 +79,12 @@
             roomA->connectSouth(roomB);
             roomB->connectNorth(roomA);
         }
-        else Dstate = Fail;
-        
+        else Dstate = Fail; 
         return;
- 
     }
 
-    Room *Dungeon::findRoom(std::string RoomName) const
+    
+    Room *Dungeon::findRoom(std::string RoomName) 
     {
         if(!head) { return nullptr; }
         Room* curr = head;
@@ -77,8 +92,56 @@
         {
             if((*curr) == RoomName.c_str())
             return curr;
+            curr = curr->getNext();
         }
+        Dstate = Fail;
         return nullptr;
+    }
+    
+    
+    void Dungeon::placeItem(std::string roomName, Item *itemToAdd)
+    {
+        if(!itemToAdd) {
+            Dstate = Fail; 
+            return;
+        }
+        Room* roomToAddTo = findRoom(roomName);
+        if(!roomToAddTo){
+            Dstate = Fail; 
+            return;
+        }
+        const Item* existingItem = roomToAddTo->getItem();
+        if(existingItem && *roomToAddTo == itemToAdd)
+        {
+            Dstate = Fail; 
+            return;
+        }
+        *roomToAddTo += itemToAdd;
+        Dstate = Success;
+        return;
+    }
+
+    void Dungeon::placeMonster(std::string roomName, Monster *mnstToAdd)
+    {
+        if(!mnstToAdd){
+            Dstate = Fail; 
+            return;
+        }
+        Room* roomToAddTo = findRoom(roomName);
+        if(!roomToAddTo){
+            Dstate = Fail; 
+            return;
+        }
+        const Monster* existingMnstr = roomToAddTo->getMnstr();
+        if(existingMnstr && *(roomToAddTo)->getMnstr() == *mnstToAdd)
+        {
+            Dstate = Fail; 
+            return;
+        }
+        *roomToAddTo += mnstToAdd;
+        Dstate = Success;
+        return;
     }
 
 #pragma endregion
+    

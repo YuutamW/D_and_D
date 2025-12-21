@@ -6,7 +6,7 @@
 #include <cctype>
 #include "Monster.hpp"
 #include "Item.hpp"
-
+#define NUM_OF_ITEMS_IN_INVENTOTY 2
 //frwrd decleration
 class Monster;  
 class Item;     
@@ -19,6 +19,14 @@ private:
     int health;
     int strength;
     int defense;
+    Item *inventory[NUM_OF_ITEMS_IN_INVENTOTY] = {nullptr};
+    void insertToInventory(const Item *itemToIn);
+    void replaceItem(const Item* inventoryItem ,const Item *itemToIn);
+    inline void updateStats(const Item* itemToIn) 
+    {if(!itemToIn) return;
+    health += itemToIn->getHPBonus();
+    strength += itemToIn->getStrenBonus();
+    defense += itemToIn->getDefenseBonus();}
     protected :
     characterType type;
 public:
