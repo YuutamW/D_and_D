@@ -34,6 +34,7 @@ public:
     inline const int getDefenseBonus() const {return mnstrDef;}
     inline const std::string getStrName() const {return std::string(name);}
     inline const char* getName() const {return name;}
+    std::string printMonster() const;
     //Operators overloading
     Monster& operator=(const Monster& other);
     //! op: will return true when (name == null) or detected the less critical error data(-1) that could have been set along the program.

@@ -27,10 +27,10 @@ private:
     
 public:
      Room() : roomName(nullptr), north(nullptr), south(nullptr),
-     east(nullptr), west(nullptr), item(nullptr), monster(nullptr) {}
+     east(nullptr), west(nullptr), item(nullptr), monster(nullptr),next(nullptr) {}
     
      Room(const char *giveName) : roomName(strdup(giveName)), north(nullptr),
-     south(nullptr),east(nullptr), west(nullptr), item(nullptr), monster(nullptr) {}
+     south(nullptr),east(nullptr), west(nullptr), item(nullptr), monster(nullptr),next(nullptr) {}
     
      Room(const Room& other);
     ~Room();
@@ -44,7 +44,7 @@ public:
     inline void setMonster(Monster* mnstrToAdd) {cleanMnstrInRoom(); this->monster = (mnstrToAdd) ? new Monster(*mnstrToAdd) : nullptr;}
 
     //getters&setters
-    inline const char* getName() const { return roomName; }
+    inline std::string getName() const { return roomName; }
     inline const Room* getNorth() const { return north; }
     inline const Room* getSouth() const { return south; }
     inline const Room* getEast() const { return east; }
@@ -52,7 +52,7 @@ public:
     inline const Item* getItem() const { return item; }
     inline const Monster* getMnstr() const { return (monster)? monster : nullptr;}
     inline Room* getNext() const {return next;}
-    inline std::string roomToString() const {return std::string(roomName);}
+    std::string printRoom() const;
     inline void setNext(Room* NextRoom) {next = NextRoom;}
     
     //OP==: (Room_OBJ)==(const char*): if other room has no name(null) will return false regardless.

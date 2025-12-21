@@ -44,6 +44,11 @@ void Monster::TakeDamage(int dmg)
     mnstrHP -= damageDealt; 
 }
 
+std::string Monster::printMonster() const
+{
+    using namespace std;
+    return getStrName() +"Health: "+to_string(mnstrHP)+ "Strength: "+to_string(mnstrStren)+"Defense: "+to_string(mnstrDef);
+}
     #pragma region operator overlaoding
 Monster &Monster::operator=(const Monster &other)
 {

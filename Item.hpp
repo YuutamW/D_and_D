@@ -29,7 +29,7 @@ public:
     inline int getDefenseBonus() const {return defenseBonus;}
     inline const std::string getName() const {return std::string(name);}
     virtual std::string ItemCategory() const = 0;
-    
+    std::string printItem() const;
     //operators
     inline bool operator!() const { return !name || healthBonus == -1 || strengthBonus == -1 || defenseBonus == -1 ;}
     //OP==: (Item)==(char*) compares names

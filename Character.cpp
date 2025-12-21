@@ -7,47 +7,46 @@
 
 #pragma region private Helpers
 
-    void Character::insertToInventory(const Item* itemToIn)
+    bool Character::insertToInventory(const Item* itemToIn)
     {
         if(!itemToIn) return;
-        Item* inventoryItem;
+        int itemIndex = 0;
         if(itemToIn->ItemCategory() == "POTION"){
-        //if the item is a potion, we simply add the stats to the character stats.
+            //if the item is a potion, we simply add the stats to the character stats.
             updateStats(itemToIn);
-            delete itemToIn;    //we arent using the potion any more and it isnt held in the inventory.
-            return;
+            //we arent using the potion any more and it isnt held in the inventory. the room will delete the item.
+            return true;
         }
         else if(itemToIn->ItemCategory() == "SHIELD" && type == warrior)
         {
-            inventoryItem =  inventory[1];
+            itemIndex = 1;
         }
-        else inventoryItem = inventory[0];
-        replaceItem(inventoryItem, itemToIn);
+        else itemIndex = 0;
+        return replaceItem(inventory[itemIndex], itemToIn);
     }
 
-    void Character::replaceItem(const Item* inventoryItem, const Item *itemToIn)
+    bool Character::replaceItem(Item*& inventorySlot, const Item* itemToIn)
     {
         if(!itemToIn) return;
-        else if(!inventoryItem)
+        else if(!inventorySlot)
         {
-            inventoryItem = itemToIn;
+            inventorySlot = itemToIn->clone();
             updateStats(itemToIn);
-            return;
+            return true;
         } 
-        else if(*inventoryItem < *itemToIn)
+        else if(*inventorySlot < *itemToIn)
         {
-            health -= inventoryItem->getHPBonus();
-            strength -= inventoryItem->getStrenBonus();
-            defense -= inventoryItem->getDefenseBonus();
-            delete inventoryItem;
-            inventoryItem = nullptr;
+            health -= inventorySlot->getHPBonus();
+            strength -= inventorySlot->getStrenBonus();
+            defense -= inventorySlot->getDefenseBonus();
+            delete inventorySlot;
+            inventorySlot = itemToIn->clone();
+            updateStats(inventorySlot);
+            return true;
         }
         else {
-            delete itemToIn;
-            return;
+            return false;
         }
-        inventoryItem = itemToIn;
-        updateStats(itemToIn);
     }
 
 #pragma endregion
@@ -71,36 +70,47 @@
         name = nullptr;
     }
 
-#pragma endregion
-
+    
+    #pragma endregion
+    
     void Character::attack(Monster &target)
     {
-       target.TakeDamage(strength);
+        target.TakeDamage(strength);
     }
-
+    
     void Character::defend(int damage)
     {
         int damageDealt = std::max(1, damage - defense);
-
+        
         if(damageDealt <= 0) return;
-
+        
         health -= damageDealt; 
         if(damageDealt > health) Alive = false;
     }
-
-   #pragma region operators
+    
+    #pragma region operators
     Character& Character::operator+(const Item &item)
     {
         if(!item) return *this;
-
-        if(item.canPickUp(this->type))
-        {
-            insertToInventory(&item);
-        }
+        
+        tookItem = (item.canPickUp(this->type)) ? insertToInventory(&item) : false;
+        
         return *this;
     }
+    
+    #pragma endregion
+    
+    std::string Character::printPlayerStats() const
+    {
+        using namespace std;
+        return "Player:  "+getName() +"\n\tHealth: " + to_string(health) + "\n\tStrength: " + to_string(strength) + "\n\tDefense: " + to_string(defense); +"\n";
+      
+    }
 
-   #pragma endregion
+    std::string Character::printInventory() const
+    {
+        using namespace std;
+        return "\tInventory: \nItem 1: "  + inventory[0]->printItem() + "\nItem 2: " + inventory[1]->printItem()+"\n";
+    }
 
-   
-    #pragma endregion 
+#pragma endregion 

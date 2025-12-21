@@ -19,14 +19,19 @@ private:
     int health;
     int strength;
     int defense;
+    bool tookItem = false;
     Item *inventory[NUM_OF_ITEMS_IN_INVENTOTY] = {nullptr};
-    void insertToInventory(const Item *itemToIn);
-    void replaceItem(const Item* inventoryItem ,const Item *itemToIn);
-    inline void updateStats(const Item* itemToIn) 
-    {if(!itemToIn) return;
-    health += itemToIn->getHPBonus();
-    strength += itemToIn->getStrenBonus();
-    defense += itemToIn->getDefenseBonus();}
+    
+    bool insertToInventory(const Item *itemToIn);
+    bool replaceItem( Item*& inventoryItem ,const Item* itemToIn);
+    
+    inline void updateStats(const Item* itemToIn){ 
+                                                if(!itemToIn) return;
+                                                health += itemToIn->getHPBonus();
+                                                strength += itemToIn->getStrenBonus();
+                                                defense += itemToIn->getDefenseBonus();
+                                            }
+
     protected :
     characterType type;
 public:
@@ -39,11 +44,13 @@ public:
     Character& operator+(const Item& item);
     virtual ~Character() = 0;   //pure virtual
     
-    
+    std::string printPlayerStats() const;
+    std::string printInventory() const;
     
     //getters
     inline int getHPBonus() const {return health; }
     inline int getStrenBonus() const {return strength;}
     inline int getDefenseBonus() const {return defense;}
     inline const std::string getName() const {return std::string(name);}
+    inline bool ItemTaken() {if(tookItem) {tookItem = false; return true;} else return false;}
 };

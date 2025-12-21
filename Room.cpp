@@ -45,7 +45,13 @@
         
     }
 
+    
     #pragma endregion
+    std::string Room::printRoom() const
+    {
+        using namespace std;
+        return "Room: " + getName() + "\n\tMonster: " + monster->printMonster() + "\n\tItem: " + item->printItem();
+    }
 
     
 #pragma endregion
