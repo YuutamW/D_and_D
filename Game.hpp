@@ -60,13 +60,10 @@ private:
         INVALID_ITEM_TYPE,
         ITEM_ALREADY_IN_ROOM,
         PLACE_ITEM_FAIL,
-        
-        
-
     };
     
     void outputError(string errVar, errTypes errType);
-    inline string roomNotFoundErr(string roomName) const {cout<<"ERROR! room: "<<roomName<<" Not Found!"<<endl;}
+    inline string roomNotFoundErr(string roomName) const {return "ERROR! room:  "+ roomName+" Not Found";}
     inline bool validateDirArg(std::string DIR) const {return (DIR=="North"||DIR=="South"||DIR=="West"||DIR=="East");}
     public:
     Game(/* args */);

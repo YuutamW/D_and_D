@@ -171,4 +171,132 @@ using namespace std;
     
     }
 
+    void Game::handleFight(string monsterName)
+    {
+        if(!currentRoom) return;
+        Monster* monster = (Monster*)currentRoom->getMnstr();//check if monster is in room
+        if(!monster || monster->getName() != monsterName) {
+            actionLog.push_back(monsterName + "Not found in room :" +currentRoom->getName());
+            return;
+        }
+        actionLog.push_back(player->getName() + " fights " + monsterName);
+        while(player->isAlive() && !monster->isDefeated())
+        {
+            player->attack(*monster);
+            actionLog.push_back("\t"+player->getName() + " Attacks: "+ monsterName +" monster HP: " + to_string(monster->getHPBonus())+"\n");
+
+            if(!monster->isDefeated()) {
+                monster->attack(*player);
+                actionLog.push_back("\t"+monster->getStrName() + " Attacks: "+ player->getName() +" Player HP: " + to_string(player->getHPBonus())+"\n");
+            }
+        }
+        if (player->isAlive()) {
+        actionLog.push_back(player->getName() + " fights " + monsterName + ": Victory");
+        } else {
+        actionLog.push_back(player->getName() + " fights " + monsterName + ": Lose");
+        }
+    }
+
+    void Game::handlePickUp(string itemName)
+    {
+        if(!currentRoom || !player) return;
+
+        Item* item = (Item*)currentRoom->getItem();
+
+        if(!item || item->getName() != itemName){
+            actionLog.push_back(itemName+" Does not exist in current room: "+currentRoom->getName());
+            return;
+        }
+        *player + *item;
+        if(player->ItemTaken()) {
+            actionLog.push_back(player->getName()+" picks up " + itemName );
+        }
+        else {
+            actionLog.push_back(itemName+ " Has not been picked up: ");
+            if(item->canPickUp(player->getCharacterType()))
+            {
+                actionLog.push_back(itemName+" Stats are worse than current item");
+            }
+            else{
+                actionLog.push_back(itemName+" cannot be picked up by "+player->getName());
+            }
+        }
+        currentRoom->setItem(nullptr); //inventory keepsa deep cpy, delete from room 
+        //to prevent picking up again, or if didnt pick up, it isnt used.
+    }
+
+    void Game::outputError(string errVar, errTypes errType)
+    {
+
+    }
+
+#pragma endregion
+
+#pragma region public methods
+
+void Game::loadFromFile(const string& filename)
+{
+    ifstream file(filename);
+    if(!file.is_open())
+    {
+        cerr << "Error: Could not open file "<<filename<<endl;
+        return;
+    }
+    string line;
+    while(getline(file,line))
+    {
+        parseLine(line);
+    }
+    file.close();
+}
+
+
+void Game::executeCommands()
+{
+    for(const auto& line : pendingCommands)
+    {
+        stringstream ss(line);
+        string command;
+        ss >> command;
+        if(command == "Enter") {
+            currentRoom = dungeon.getStartRoom();
+            if (currentRoom) 
+                actionLog.push_back(player->getName() + " enters the dungeon.");
+            else 
+                actionLog.push_back("Error: Start room not defined.");
+        }else if(command == "Move") {
+            string name , dir;
+            ss >> name >> dir;
+            handleMove(dir);
+        }else if(command == "Fight") {
+            string name, monsterName;
+            ss >> name >> monsterName;
+            handleFight(monsterName);
+        }else if (command == "PickUp") {
+            string name ,itemName;
+            ss >> name >>itemName;
+            handlePickUp(itemName);
+        }else {
+            actionLog.push_back("Error: " +command + " Is not a known command! ");
+        }
+    }
+}
+
+
+void Game::outputFinalState(const string& filename)
+{
+    ofstream outfile(filename);
+    if(!outfile.is_open()) return;
+
+    for(const auto& line : actionLog) 
+        outfile << line << endl;
+    
+    outfile<<endl;
+    //printing final stats: 
+    outfile << player->getName() <<"'s Final Stats: " <<endl;
+    outfile << player->printPlayerStats() << endl;
+    outfile << player->printInventory() << endl;
+
+    outfile.close();
+}
 #pragma endregion

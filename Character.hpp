@@ -56,4 +56,5 @@ public:
     inline int getDefenseBonus() const {return defense;}
     inline const std::string getName() const {return std::string(name);}
     inline bool ItemTaken() {if(tookItem) {tookItem = false; return true;} else return false;}
+    inline const characterType getCharacterType() const {return type;}
 };
