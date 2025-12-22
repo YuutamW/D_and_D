@@ -85,7 +85,7 @@
 
     
     Room *Dungeon::findRoom(std::string RoomName) 
-    {
+    {   Dstate = Success;
         if(!head) { return nullptr; }
         Room* curr = head;
         while (curr)
@@ -101,6 +101,7 @@
     
     void Dungeon::placeItem(std::string roomName, Item *itemToAdd)
     {
+        
         if(!itemToAdd) {
             Dstate = Fail; 
             return;

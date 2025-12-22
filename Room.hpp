@@ -45,12 +45,12 @@ public:
 
     //getters&setters
     inline std::string getName() const { return roomName; }
-    inline const Room* getNorth() const { return north; }
-    inline const Room* getSouth() const { return south; }
-    inline const Room* getEast() const { return east; }
-    inline const Room* getWest() const { return west; }
-    inline const Item* getItem() const { return item; }
-    inline const Monster* getMnstr() const { return (monster)? monster : nullptr;}
+    inline  Room* getNorth() const { return north; }
+    inline  Room* getSouth() const { return south; }
+    inline  Room* getEast() const { return east; }
+    inline  Room* getWest() const { return west; }
+    inline  Item* getItem() const { return item; }
+    inline  Monster* getMnstr() const { return (monster)? monster : nullptr;}
     inline Room* getNext() const {return next;}
     std::string printRoom() const;
     inline void setNext(Room* NextRoom) {next = NextRoom;}

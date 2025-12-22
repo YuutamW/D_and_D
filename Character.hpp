@@ -42,6 +42,9 @@ public:
     void defend(int damage);
     inline bool isAlive() const {return Alive;}
     Character& operator+(const Item& item);
+
+    //OP!: name == nullptr
+    inline bool operator!() const {return name == nullptr;}
     virtual ~Character() = 0;   //pure virtual
     
     std::string printPlayerStats() const;

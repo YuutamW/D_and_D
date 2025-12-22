@@ -7,13 +7,21 @@
 #include <vector>
 #include <string>
 #include <sstream>
-
 #include "Dungeon.hpp"
 #include "Character.hpp"
 #include "CharacterTypes.hpp"
 #include "Room.hpp"
 #include "Item.hpp"
-
+#include "Warrior.hpp"
+#include "Mage.hpp"
+#include "Thief.hpp"
+#include "Sword.hpp"
+#include "Shield.hpp"
+#include "Wand.hpp"
+#include "Dagger.hpp"
+#include "HealthPotion.hpp"
+#include "StrengthPotion.hpp"
+#include "DefensePotion.hpp"
 class Game
 {
 private:
@@ -30,14 +38,37 @@ private:
     void parseLine(const std::string& line);
     //--execution--
     void handleCreate(std::stringstream& ss);
-    void handleAdd(std::stringstream& ss);
+    // void handleAdd(std::stringstream& ss); //Add command has been removed from requirements
     void handleConnect(std::stringstream& ss);
     void handlePlace(std::stringstream& ss);
     //---Gameplay helpers---
     void handleMove(std::string direction);
     void handleFight(std::string monsterName);
     void handlePickUp(std::string itemName);
-public:
+
+    enum errTypes 
+    {
+        ROOM411,
+        ROOM_ALREADY_EXISTS,
+        INVALID_COMMAND_ARG,
+        NEW_ROOM_FAIL,
+        NEW_ITEM_FAIL,
+        NEW_MONSTER_FAIL,
+        PLAYER_CREATE_FAIL,
+        INVALID_CREATE_ARG,
+        INVALID_DIR_ARG,
+        INVALID_ITEM_TYPE,
+        ITEM_ALREADY_IN_ROOM,
+        PLACE_ITEM_FAIL,
+        
+        
+
+    };
+    
+    void outputError(string errVar, errTypes errType);
+    inline string roomNotFoundErr(string roomName) const {cout<<"ERROR! room: "<<roomName<<" Not Found!"<<endl;}
+    inline bool validateDirArg(std::string DIR) const {return (DIR=="North"||DIR=="South"||DIR=="West"||DIR=="East");}
+    public:
     Game(/* args */);
     ~Game();
 

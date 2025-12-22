@@ -36,5 +36,7 @@ public:
     void placeMonster(std::string roomName, Monster* mnstToAdd);
 
     Room* findRoom(std::string RoomName);
+    inline Room* getStartRoom() const {return startRoom;}
+    inline bool getState() const {return (Dstate == Success);}
 };
 
