@@ -183,11 +183,11 @@ using namespace std;
         while(player->isAlive() && !monster->isDefeated())
         {
             player->attack(*monster);
-            actionLog.push_back("\t"+player->getName() + " Attacks: "+ monsterName +" monster HP: " + to_string(monster->getHPBonus())+"\n");
+            actionLog.push_back("\t"+player->getName() + " Attacks: "+ monsterName +" monster HP: " + to_string(monster->getHPBonus()));
 
             if(!monster->isDefeated()) {
                 monster->attack(*player);
-                actionLog.push_back("\t"+monster->getStrName() + " Attacks: "+ player->getName() +" Player HP: " + to_string(player->getHPBonus())+"\n");
+                actionLog.push_back("\t"+monster->getStrName() + " Attacks: "+ player->getName() +" Player HP: " + to_string(player->getHPBonus()));
             }
         }
         if (player->isAlive()) {
@@ -226,9 +226,71 @@ using namespace std;
     }
 
     void Game::outputError(string errVar, errTypes errType)
+{
+    string msg = "Error: ";
+    
+    switch(errType)
     {
+        case ROOM411:
 
+            msg += "Room '" + errVar + "' was not found in the dungeon.";
+            break;
+
+        case ROOM_ALREADY_EXISTS:
+            msg += "Attempted to create Room '" + errVar + "', but it already exists.";
+            break;
+
+        case INVALID_COMMAND_ARG:
+            msg += "Unrecognized command or argument: " + errVar;
+            break;
+
+        case NEW_ROOM_FAIL:
+            msg += "Memory allocation failed. Could not create Room: " + errVar;
+            break;
+
+        case NEW_ITEM_FAIL:
+            msg += "Memory allocation failed. Could not create Item: " + errVar;
+            break;
+
+        case NEW_MONSTER_FAIL:
+            msg += "Memory allocation failed. Could not create Monster: " + errVar;
+            break;
+
+        case PLAYER_CREATE_FAIL:
+            msg += "Failed to create Character: " + errVar + ". (Check memory or valid class type)";
+            break;
+
+        case INVALID_CREATE_ARG:
+            msg += "Invalid type for creation: " + errVar + ". (Expected Room, Warrior, Thief, or Mage)";
+            break;
+
+        case INVALID_DIR_ARG:
+            msg += "Invalid direction: " + errVar + ". (Expected North, South, East, or West)";
+            break;
+
+        case INVALID_ITEM_TYPE:
+            msg += "Unknown Item type: " + errVar + ".";
+            break;
+
+        case ITEM_ALREADY_IN_ROOM:
+            msg += "Room already contains an item. Cannot place: " + errVar;
+            break;
+
+        case PLACE_ITEM_FAIL:
+            msg += "Failed to place item '" + errVar + "' (Logic or State error).";
+            break;
+
+        default:
+            msg += "Unknown error occurred involving: " + errVar;
+            break;
     }
+
+    // 1. Push to the log so it appears in "output.txt"
+    actionLog.push_back(msg);
+
+    // 2. Printing to console immediately for easier debugging while running
+    std::cerr << msg << std::endl; 
+}
 
 #pragma endregion
 
