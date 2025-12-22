@@ -214,20 +214,20 @@ using namespace std;
             actionLog.push_back(player->getName()+" picks up " + itemName );
         }
         else {
-            actionLog.push_back(itemName+ " Has not been picked up: ");
+            actionLog.push_back("\t"+itemName+ " Has not been picked up: ");
             if(item->canPickUp(player->getCharacterType()))
             {
-                actionLog.push_back(itemName+" Stats are worse than current item");
+                actionLog.push_back("\t"+itemName+"'s Stats are worse than current item");
             }
             else{
-                actionLog.push_back(itemName+" cannot be picked up by "+player->getName());
+                actionLog.push_back("\t"+itemName+" cannot be picked up by "+player->getName());
             }
         }
         currentRoom->setItem(nullptr); //inventory keepsa deep cpy, delete from room 
         //to prevent picking up again, or if didnt pick up, it isnt used.
     }
 
-    void Game::outputError(string errVar, errTypes errType)
+void Game::outputError(string errVar, errTypes errType)
 {
     string msg = "Error: ";
     

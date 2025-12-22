@@ -93,9 +93,8 @@
     
     void Character::defend(int damage)
     {
-        int damageDealt = std::max(1, damage - defense);
-        
-        if(damageDealt <= 0) return;
+        if(damage <= 0) return;
+        int damageDealt = std::max(1, defense - damage);
         
         health -= damageDealt; 
         if(damageDealt > health) Alive = false;
