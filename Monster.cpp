@@ -40,8 +40,8 @@ void Monster::TakeDamage(int dmg)
     int damageDealt = std::max(1, dmg - mnstrDef );
 
     // if(damageDealt <= 0) return;
-    if(damageDealt > mnstrHP) Defeated = true;
     mnstrHP -= damageDealt; 
+    Defeated = (mnstrHP <= 0);
 }
 
 std::string Monster::printMonster() const

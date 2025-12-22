@@ -1,0 +1,36 @@
+#compiler configs
+CC = g++
+CCFLAG =  -O0 
+DEPFLAG = -MMD -MP
+TARGET = DBug_Crawler
+#$(wildcard *.cpp): automatically scans your folder and creates a list of all .cpp files.
+SRCS = $(wildcard *.cpp)
+OBJS = $(SRCS:.cpp=.o)
+
+#Dependecies - replaces .o with .d
+DEPS = $(OBJS:.o=.d)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CCFLAG) -o $(TARGET) $(OBJS)
+
+valgrind: $(TARGET)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(TARGET)
+
+#THE Pattern Rule: this section tells Make how to turn any cpp to o files
+#%: A Wildcard, "for any file ending with .o" . 
+#$< : automatic variable input file (.cpp)
+#$@ : automatic variable for the output file (.o)
+#%.o: - "If you are trying to build any file taht ends with .o"
+#%.cpp - "you first need to find the matching file that ends with .cpp"
+
+
+
+%.o: %.cpp
+	$(CC) $(CCFLAG) $(DEPFLAG) -c $< -o $@
+
+-include $(DEPS)
+
+clean: 
+	rm -f $(OBJS) $(DEPS) $(TARGET)

@@ -60,6 +60,7 @@ private:
         INVALID_ITEM_TYPE,
         ITEM_ALREADY_IN_ROOM,
         PLACE_ITEM_FAIL,
+        INVALID_CONNECTION
     };
     
     void outputError(std::string errVar, errTypes errType);

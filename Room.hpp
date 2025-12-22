@@ -55,6 +55,7 @@ public:
     std::string printRoom() const;
     inline void setNext(Room* NextRoom) {next = NextRoom;}
     
+    
     //OP==: (Room_OBJ)==(const char*): if other room has no name(null) will return false regardless.
     inline bool operator==(const char* otherRoomName) const {return (otherRoomName && this->roomName) ? (strcmp(otherRoomName,this->roomName) == 0) : false ;}
     //OP==: (Room_OBJ)==(Room_OBJ):binary oprtr between two objects will check duplicates between Names

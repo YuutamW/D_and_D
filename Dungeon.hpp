@@ -29,7 +29,7 @@ public:
     //--setup methods--
     void addRoom(Room* roomToAdd);
     void setStartRoom(Room* roomToSet);
-    void connectRooms(Room* roomA, Room* roomB, std::string dir);
+    void attemptConnection(Room* roomA, Room* roomB, std::string dir);
 
     //--populate methods--
     void placeItem(std::string roomName, Item* itemToAdd);

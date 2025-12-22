@@ -6,7 +6,7 @@
 int main() {
 
     Game game;
-    game.loadFromFile("input.txt");
+    game.loadFromFile("input2.txt");
 
     // Run game logic based on loaded commands
     game.executeCommands();

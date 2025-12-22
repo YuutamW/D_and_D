@@ -94,10 +94,10 @@
     void Character::defend(int damage)
     {
         if(damage <= 0) return;
-        int damageDealt = std::max(1, defense - damage);
+        int damageDealt = std::max(1, damage - defense);
         
         health -= damageDealt; 
-        if(damageDealt > health) Alive = false;
+        Alive = (health > 0);
     }
     
     #pragma region operators

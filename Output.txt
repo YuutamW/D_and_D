@@ -1,21 +1,31 @@
-Thorin enters the dungeon.
-Thorin picks up Sword
-Thorin moves North to Hallway.
-Thorin fights Goblin
-	Thorin Attacks: Goblin monster HP: 7
-	Goblin Attacks: Thorin Player HP: 90
-	Thorin Attacks: Goblin monster HP: -16
-Thorin fights Goblin: Victory
-Sword Does not exist in current room: Hallway
-Thorin moves East to TreasureRoom.
-Thorin picks up Shield
+Error: Attempted to create Room 'Entrance', but it already exists.
+Error: Failed to connect room 'Entrance' Cant connect room to itself or room to startRoom. or room is already connected in the direction.
+Error: Failed to connect room 'TreasureRoom' Cant connect room to itself or room to startRoom. or room is already connected in the direction.
+Error: Failed to connect room 'Kitchen' Cant connect room to itself or room to startRoom. or room is already connected in the direction.
+Dorin enters the dungeon.
+	Sword Has not been picked up: 
+	Sword cannot be picked up by Dorin
+Dorin moves North to Hallway.
+Dorin fights TheSsSsSimp_EranAbba
+	Dorin Attacks: TheSsSsSimp_EranAbba monster HP: -8
+Dorin slays the fierce TheSsSsSimp_EranAbba: Victory!
+Dorin moves East to Cave.
+Dorin picks up Wand
+Dorin fights TheButcher_WildNoodler
+	Dorin Attacks: TheButcher_WildNoodler monster HP: 75
+	TheButcher_WildNoodler Attacks: Dorin Player HP: 25
+	Dorin Attacks: TheButcher_WildNoodler monster HP: 50
+	TheButcher_WildNoodler Attacks: Dorin Player HP: 10
+	Dorin Attacks: TheButcher_WildNoodler monster HP: 25
+	TheButcher_WildNoodler Attacks: Dorin Player HP: -5
+Dorin has lost to the mighty TheButcher_WildNoodler Tales will be told of our brave hero for generations to come!
 
-Thorin's Final Stats: 
-Player:  Thorin
-	Health: 90
-	Strength: 25
-	Defense: 25
+Dorin's Final Stats: 
+Player:  Dorin
+	Health: -5
+	Strength: 40
+	Defense: 10
 	Inventory: 
-Item 1: Sword 0 10 5
-Item 2: Shield 0 0 10
+Item 1: Wand 0 15 5
+Item 2: N/A
 

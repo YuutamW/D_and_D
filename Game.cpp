@@ -50,7 +50,7 @@ using namespace std;
              {//storing the line to be executed in phase 2
                 pendingCommands.push_back(line);
              }
-        else outputError(command, INVALID_COMMAND_ARG);
+        // else outputError(command, INVALID_COMMAND_ARG);
     }
 
     void Game::handleCreate(stringstream& ss)
@@ -102,7 +102,11 @@ using namespace std;
         if(!rB || !dungeon.getState()) {outputError(roomB,ROOM411); return;}
         if(validateDirArg(direction) == false)
         {outputError(direction,INVALID_DIR_ARG); return;}
-        dungeon.connectRooms(rA, rB, direction);
+        if(*rA == *rB || *rB == *dungeon.getStartRoom() )
+        {outputError(roomA,INVALID_CONNECTION); return;}
+        dungeon.attemptConnection(rA, rB, direction);
+        if(!dungeon.getState())
+            outputError(roomA , INVALID_CONNECTION);
     }
 
     void Game::handlePlace(stringstream& ss)
@@ -124,7 +128,7 @@ using namespace std;
             else if(itemName == "Wand") newItem = new Wand(itemC_Name,hp,str,def);
             else if(itemName == "Dagger") newItem = new Dagger(itemC_Name,hp,str,def);
             else if(itemName == "HealthPotion") newItem = new HealthPotion(itemC_Name,hp,str,def);
-            else if(itemName == "DefensePostion") newItem = new DefensePotion(itemC_Name,hp,str,def);
+            else if(itemName == "DefensePotion") newItem = new DefensePotion(itemC_Name,hp,str,def);
             else if(itemName == "StrengthPotion") newItem = new StrengthPotion(itemC_Name,hp,str,def);
             else {outputError(itemName,INVALID_ITEM_TYPE); return;}
 
@@ -193,9 +197,9 @@ using namespace std;
             }
         }
         if (player->isAlive()) {
-        actionLog.push_back(player->getName() + " fights " + monsterName + ": Victory");
+        actionLog.push_back(player->getName() + " slays the fierce " + monsterName + ": Victory!");
         } else {
-        actionLog.push_back(player->getName() + " fights " + monsterName + ": Lose");
+        actionLog.push_back(player->getName() + " has lost to the mighty " + monsterName + " Tales will be told of our brave hero for generations to come!");
         }
     }
 
@@ -282,6 +286,10 @@ void Game::outputError(string errVar, errTypes errType)
             msg += "Failed to place item '" + errVar + "' (Logic or State error).";
             break;
 
+        case INVALID_CONNECTION:
+            msg += "Failed to connect room '" +errVar +"' Cant connect room to itself or room to startRoom. or room is already connected in the direction.";
+            break;
+
         default:
             msg += "Unknown error occurred involving: " + errVar;
             break;
@@ -328,19 +336,20 @@ void Game::executeCommands()
                 actionLog.push_back(player->getName() + " enters the dungeon.");
             else 
                 actionLog.push_back("Error: Start room not defined.");
-        }else if(command == "Move") {
+        }else if(command == "Move" && player->isAlive()) {
             string name , dir;
             ss >> name >> dir;
             handleMove(dir);
-        }else if(command == "Fight") {
+        }else if(command == "Fight" && player->isAlive()) {
             string name, monsterName;
             ss >> name >> monsterName;
             handleFight(monsterName);
-        }else if (command == "PickUp") {
+        }else if (command == "PickUp" && player->isAlive()) {
             string name ,itemName;
             ss >> name >>itemName;
             handlePickUp(itemName);
         }else {
+            if(player->isAlive())
             actionLog.push_back("Error: " +command + " Is not a known command! ");
         }
     }

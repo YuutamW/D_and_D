@@ -1,0 +1,76 @@
+// Create the main character 
+Create Mage Dorin
+
+// Define rooms
+Create Room Entrance
+Create Room Entrance //Should return Error!
+Create Room Hallway 
+Create Room TreasureRoom
+Create Room Cave
+Create Room Toillette
+Create Room Portal
+Create Room GoonCave
+Create Room Kitchen
+Create Room KittensRoom
+Create Room DiscoFloor
+
+// Set the start room
+Set StartRoom Entrance
+
+// Establish connections
+Connect Entrance Hallway North
+Connect Entrance Entrance East  //Error
+Connect Entrance GoonCave South
+Connect Hallway Cave East
+//Connect Hallway TreasureRoom East
+Connect TreasureRoom Hallway North
+Connect Hallway Toillette West
+Connect Toillette Portal South
+Connect Portal Kitchen South
+Connect Kitchen Entrance East   //Error
+Connect Entrance DiscoFloor East
+Connect GoonCave KittensRoom South
+
+// Place items in rooms
+Place Item Sword Entrance 0 0 0 //should no be able to pick up
+Place Item Shield Hallway 0 6 14 //should not be able to pick up
+Place Monster TheSsSsSimp_EranAbba Hallway 15 3 2
+Place Item Wand Cave  0 5 5
+Place Monster TheButcher_WildNoodler Cave 100 25 15   //WildNoodler 
+Place Item HealthPotion Toillette 50 0 0
+Place Monster RookieMonster Toillette 40 12 30
+//Place Item Wand Portal 1 10 5
+Place Item DefensePotion Portal -10 -4 -15      // ERROR! - Already an item in the room
+Place Monster TheLgendary_StRiva Kitchen 60 10 4
+Place Item StrengthPotion Kitchen 0 14 2
+Place Monster TheFierce_MeyyDAAAAnetNinja GoonCave 25 13 25
+Place Item HealthPotion GoonCave 30 0 15 
+Place Monster TheChampion_YigalHafifHofner KittensRoom 400 25 15
+
+// Character Actions:
+Enter Dungeon Dorin
+PickUp Dorin Sword  //Error
+Move Dorin North
+Fight Dorin TheSsSsSimp_EranAbba
+Move Dorin East 
+PickUp Dorin Wand
+Fight Dorin TheButcher_WildNoodler
+Move Dorin West
+PickUp Dorin Shield //Error
+Move Dorin West
+PickUp Dorin HealthPotion
+Fight Dorin RookieMonster
+Move Dorin West
+Move Dorin South
+PickUp Dorin Wand
+PickUp Dorin DefensePotion //Error
+Move Dorin South 
+Fight Dorin TheLgendary_StRiva
+PickUp Dorin StrengthPotion
+Move Dorin East
+PickUp Dorin Sword  //Error
+Move Dorin South
+Fight Dorin TheFierce_MeyyDAAAAnetNinja
+PickUp Dorin HealthPotion
+Move Dorin South
+Fight Dorin TheChampion_YigalHafifHofner

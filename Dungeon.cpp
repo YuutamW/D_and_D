@@ -61,23 +61,32 @@
         Dstate = Success;
     }
     
-    void Dungeon::connectRooms(Room *roomA, Room *roomB, std::string dir)
+    void Dungeon::attemptConnection(Room *roomA, Room *roomB, std::string dir)
     {
         Dstate = (roomA && roomB) ? Success : Fail;
         if(Dstate == Fail) return;
         using namespace std;
         if(dir == "East"){
-            roomA->connectEast(roomB);
-            roomB->connectWest(roomA);
+            if(!roomA->getEast() && !roomB->getWest()){
+                roomA->connectEast(roomB);
+                roomB->connectWest(roomA);
+            }
+            else Dstate = Fail;
         }else if(dir =="North"){
-            roomA->connectNorth(roomB);
-            roomB->connectSouth(roomA);
+            if(!roomA->getNorth() && !roomB->getSouth()){
+                roomA->connectNorth(roomB);
+                roomB->connectSouth(roomA);
+            }else Dstate = Fail;
         }else if(dir == "West") {
-            roomA->connectWest(roomB);
-            roomB->connectEast(roomA);
+            if(!roomA->getWest() && !roomB->getEast()){
+                roomA->connectWest(roomB);
+                roomB->connectEast(roomA);
+            }else Dstate = Fail;
         }else if(dir == "South"){
+            if(!roomA->getSouth() && !roomB->getNorth()) {
             roomA->connectSouth(roomB);
             roomB->connectNorth(roomA);
+            }else Dstate = Fail;
         }
         else Dstate = Fail; 
         return;
