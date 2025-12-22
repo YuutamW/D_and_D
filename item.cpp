@@ -38,17 +38,17 @@ Item::~Item() {if(name)free(name); name = nullptr;}
     #pragma region Operators
     bool Item::operator==(const Item & other) const
     {
-        return (!this || !other) ? false : this->itemStats == other.itemStats;
+        return (!*this || !other ) ? false : this->itemStats == other.itemStats;
     }
 
     bool Item::operator>(const Item & other) const  
     {
-        return (!this || !other) ? false : this->itemStats > other.itemStats;
+        return (!*this || !other) ? false : this->itemStats > other.itemStats;
     }
 
     bool Item::operator<(const Item & other) const
     {
-        return (!this || !other) ? false : !(*this > other) ;
+        return (!*this || !other) ? false : !(*this > other) ;
     }
 
     

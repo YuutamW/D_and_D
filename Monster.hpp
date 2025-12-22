@@ -5,7 +5,8 @@
 
 #include <iostream>
 #include "Character.hpp"
-
+#include <cstring>
+class Character;
 
 
 class Monster
@@ -29,9 +30,9 @@ public:
     void TakeDamage(int dmg);
 
     
-    inline const int getHPBonus() const {return mnstrHP; }
-    inline const int getStrenBonus() const {return mnstrStren;}
-    inline const int getDefenseBonus() const {return mnstrDef;}
+    inline int getHPBonus() const {return mnstrHP; }
+    inline int getStrenBonus() const {return mnstrStren;}
+    inline int getDefenseBonus() const {return mnstrDef;}
     inline const std::string getStrName() const {return std::string(name);}
     inline const char* getName() const {return name;}
     std::string printMonster() const;
@@ -40,8 +41,8 @@ public:
     //! op: will return true when (name == null) or detected the less critical error data(-1) that could have been set along the program.
     inline bool operator!() const {return (!name || (mnstrDef*mnstrHP*mnstrStren) == -1);}
     //==op: will return true when all data are the same. NOTE: will return false if (other) is a bad argument.
-    inline bool operator==(const Monster& other) const
-    {return (!other) ? false : (strcmp(this->name,other.name) == 0) && (this->mnstrStren == other.mnstrStren) && (this->mnstrDef == other.mnstrDef);}
+    bool operator==(const Monster& other) const;
+    // {return (!other) ? false : ((strcmp(this->name,other.name) == 0) && (this->mnstrStren == other.mnstrStren) && (this->mnstrDef == other.mnstrDef));}
 
 };
 

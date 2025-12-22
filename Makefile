@@ -17,7 +17,7 @@ OBJS = $(SRCS:.cpp=.o)
 
 # Default Target (Release Mode)
 # Compiles with -O2 (Standard optimization)
-all: CXXFLAGS += -O2
+all: CXXFLAGS += -O0
 all: $(TARGET)
 
 # Debug Target

@@ -5,6 +5,8 @@
 using namespace std;
 #pragma region destrctrs/cnstrcrs
 
+    Game::Game() {}
+
     Game::~Game(){
         if(player) delete player;
         player = nullptr; //Dungeon destructor automatically cleans up rooms
@@ -59,7 +61,7 @@ using namespace std;
         if(type == "Room"){
             //check if the room is already in the dungeon
             Room* newRoom = dungeon.findRoom(name);
-            if(newRoom || dungeon.getState()){
+            if(newRoom){
                 outputError(name,ROOM_ALREADY_EXISTS);
                 return;
             }else{

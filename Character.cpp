@@ -9,7 +9,7 @@
 
     bool Character::insertToInventory(const Item* itemToIn)
     {
-        if(!itemToIn) return;
+        if(!itemToIn) return false;
         int itemIndex = 0;
         if(itemToIn->ItemCategory() == "POTION"){
             //if the item is a potion, we simply add the stats to the character stats.
@@ -27,7 +27,7 @@
 
     bool Character::replaceItem(Item*& inventorySlot, const Item* itemToIn)
     {
-        if(!itemToIn) return;
+        if(!itemToIn) return false;
         else if(!inventorySlot)
         {
             inventorySlot = itemToIn->clone();
@@ -49,6 +49,14 @@
         }
     }
 
+    void Character::updateStats(const Item *itemToIn)
+    {
+        if(!itemToIn) return;
+        health += itemToIn->getHPBonus();
+        strength += itemToIn->getStrenBonus();
+        defense += itemToIn->getDefenseBonus();                           
+    }
+
 #pragma endregion
 
 #pragma region public funcs
@@ -56,7 +64,12 @@
     Character::Character(char *chrName, int chrHP, int chrStren, int charDef)
     : name(chrName ? strdup(chrName) : nullptr) , health(chrHP), strength(chrStren), defense(charDef) {}
 
-    
+    Character::Character(const Character& other) : name(other.name ? strdup(other.name) : nullptr),
+    health(other.health), strength(other.strength), defense(other.defense), tookItem(other.tookItem), type(other.type)
+    {
+        for(int i = 0; i < NUM_OF_ITEMS_IN_INVENTOTY; i++)
+            inventory[i] = (other.inventory[i]) ? other.inventory[i]->clone() : nullptr;
+    }
 
     Character::~Character()
     {
@@ -103,14 +116,16 @@
     std::string Character::printPlayerStats() const
     {
         using namespace std;
-        return "Player:  "+getName() +"\n\tHealth: " + to_string(health) + "\n\tStrength: " + to_string(strength) + "\n\tDefense: " + to_string(defense); +"\n";
+        return "Player:  "+getName() +"\n\tHealth: " + to_string(health) + "\n\tStrength: " + to_string(strength) + "\n\tDefense: " + to_string(defense);
       
     }
 
     std::string Character::printInventory() const
     {
         using namespace std;
-        return "\tInventory: \nItem 1: "  + inventory[0]->printItem() + "\nItem 2: " + inventory[1]->printItem()+"\n";
+        string itemA = (inventory[0]) ? inventory[0]->printItem() : "N/A";
+        string itemB = (inventory[1]) ? inventory[1]->printItem() : "N/A";
+        return "\tInventory: \nItem 1: "  + itemA + "\nItem 2: " + itemB+"\n";
     }
 
 #pragma endregion 

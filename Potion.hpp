@@ -11,6 +11,6 @@ public:
     Potion(char* potionName, int HpBon = 0, int StrenBon = 0, int DfnsBon = 0 ) : Item(potionName,HpBon,StrenBon,DfnsBon) { dedicatedChrctr = Any;}
     virtual ~Potion() {}
     virtual Item* clone() const = 0;
-    inline bool canPickUp(characterType charType) const override {return true;}
+    inline bool canPickUp(characterType /*charType*/) const override {return true;}
     inline std::string ItemCategory() const override {return std::string("POTION");}
 };

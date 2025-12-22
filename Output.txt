@@ -1,12 +1,22 @@
 Thorin enters the dungeon.
 Thorin moves North to Hallway.
-Thorin fights Goblin: Victory //if goblin is stronger then "Lose"
-Thorin picks up Sword.
+Thorin fights Goblin
+	Thorin Attacks: Goblin monster HP: 17
+	Goblin Attacks: Thorin Player HP: 99
+	Thorin Attacks: Goblin monster HP: 4
+	Goblin Attacks: Thorin Player HP: 98
+	Thorin Attacks: Goblin monster HP: -9
+Thorin fights Goblin: Victory
+Sword Does not exist in current room: Hallway
 Thorin moves East to TreasureRoom.
-Thorin picks up Shield.
+Thorin picks up Shield
 
-Thorin's Final Stats:
-Health: 100
-Strength: 20
-Defense: 15
-Inventory: Sword, Shield
+Thorin's Final Stats: 
+Player:  Thorin
+	Health: 98
+	Strength: 15
+	Defense: 20
+	Inventory: 
+Item 1: N/A
+Item 2: Shield 0 0 10
+

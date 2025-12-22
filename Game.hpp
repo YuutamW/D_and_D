@@ -62,8 +62,8 @@ private:
         PLACE_ITEM_FAIL,
     };
     
-    void outputError(string errVar, errTypes errType);
-    inline string roomNotFoundErr(string roomName) const {return "ERROR! room:  "+ roomName+" Not Found";}
+    void outputError(std::string errVar, errTypes errType);
+    inline std::string roomNotFoundErr(std::string roomName) const {return "ERROR! room:  "+ roomName+" Not Found";}
     inline bool validateDirArg(std::string DIR) const {return (DIR=="North"||DIR=="South"||DIR=="West"||DIR=="East");}
     public:
     Game(/* args */);

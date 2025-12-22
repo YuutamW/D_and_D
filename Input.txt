@@ -20,6 +20,7 @@ Place Item Shield TreasureRoom 0 0 5 // Shield in TreasureRoom, +5 Defense (tota
 
 // Character actions: entering the dungeon, moving, fighting, and picking up items
 Enter Dungeon Thorin // Thorin starts his adventure
+//PickUp Thorin Sword //Thorin should pick up the Sword
 Move Thorin North // Thorin moves to the Hallway
 Fight Thorin Goblin // Thorin fights the Goblin in the Hallway
 PickUp Thorin Sword // Thorin picks up the Sword

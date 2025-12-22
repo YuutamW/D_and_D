@@ -6,6 +6,7 @@
 #include <cctype>
 #include "Monster.hpp"
 #include "Item.hpp"
+#include "CharacterTypes.hpp"
 #define NUM_OF_ITEMS_IN_INVENTOTY 2
 //frwrd decleration
 class Monster;  
@@ -25,12 +26,7 @@ private:
     bool insertToInventory(const Item *itemToIn);
     bool replaceItem( Item*& inventoryItem ,const Item* itemToIn);
     
-    inline void updateStats(const Item* itemToIn){ 
-                                                if(!itemToIn) return;
-                                                health += itemToIn->getHPBonus();
-                                                strength += itemToIn->getStrenBonus();
-                                                defense += itemToIn->getDefenseBonus();
-                                            }
+    void updateStats(const Item* itemToIn);
 
     protected :
     characterType type;
@@ -38,6 +34,7 @@ public:
     // Character();
     /*We need to come back here later and decide if we want to keep default params*/
     Character(char *chrName , int chrHP = 0 , int chrStren = 0, int charDef = 0);
+    Character(const Character& other);
     void attack(Monster& target);
     void defend(int damage);
     inline bool isAlive() const {return Alive;}
@@ -56,5 +53,5 @@ public:
     inline int getDefenseBonus() const {return defense;}
     inline const std::string getName() const {return std::string(name);}
     inline bool ItemTaken() {if(tookItem) {tookItem = false; return true;} else return false;}
-    inline const characterType getCharacterType() const {return type;}
+    inline characterType getCharacterType() const {return type;}
 };
